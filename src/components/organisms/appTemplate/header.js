@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from "native-base";
 
 class Header extends React.Component {
   constructor(props) {
@@ -7,7 +8,9 @@ class Header extends React.Component {
 
   render() {
     return (
-      <></>
+      <>
+        <Text>Fixed header</Text>
+      </>
     );
   }
 }

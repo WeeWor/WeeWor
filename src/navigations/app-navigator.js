@@ -23,7 +23,7 @@ class AppNavigator extends React.Component {
       <NativeBaseProvider>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home" screenOptions={{
-            headerShown: true,
+            headerShown: false,
           }}>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Search" component={Search} />

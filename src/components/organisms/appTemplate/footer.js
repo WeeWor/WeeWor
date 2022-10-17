@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from "native-base";
 
 class Footer extends React.Component {
   constructor(props) {
@@ -7,7 +8,9 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <></>
+      <>
+        <Text>Fixed footer</Text>
+      </>
     );
   }
 }
