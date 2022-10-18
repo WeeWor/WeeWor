@@ -33,7 +33,7 @@ class AppTemplate extends React.Component {
         <ScrollView>
           {this.props.children}
         </ScrollView>
-        <View h="50">
+        <View h="55">
           <Footer navigation={navigation}/>
         </View>
       </View>
