@@ -10,6 +10,7 @@ import OtherDetail from "../scenes/other-detail";
 import Profile from "../scenes/profile";
 import ProfileAccount from "../scenes/profile-account";
 import ProfileDetail from "../scenes/profile-detail";
+import Chat from "../scenes/chat";
 
 class AppNavigator extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class AppNavigator extends React.Component {
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Home" screenOptions={{
             headerShown: false,
+            animation: "none"
           }}>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Search" component={Search} />
@@ -32,6 +34,7 @@ class AppNavigator extends React.Component {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="ProfileAccount" component={ProfileAccount} />
             <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
+            <Stack.Screen name="Chat" component={Chat} />
           </Stack.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>

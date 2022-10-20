@@ -9,7 +9,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <AppTemplate {...this.props}>
+      <AppTemplate redMode={true} {...this.props}>
         <Text fontSize="lg">profile</Text>
       </AppTemplate>
     );

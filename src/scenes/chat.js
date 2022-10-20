@@ -2,18 +2,18 @@ import React from "react";
 import { Text } from "native-base";
 import AppTemplate from "../components/templates/app";
 
-class ProfileAccount extends React.Component {
+class Chat extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <AppTemplate redMode={true} {...this.props}>
-        <Text fontSize="lg">profile account</Text>
+      <AppTemplate {...this.props}>
+        <Text fontSize="lg">chat</Text>
       </AppTemplate>
     );
   }
 }
 
-export default ProfileAccount;
+export default Chat;

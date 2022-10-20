@@ -13,6 +13,11 @@ class Home extends React.Component {
       <AppTemplate {...this.props}>
         <Text fontSize="lg">lg</Text>
         <Icon as={Icons.FontAwesome5} name="user-alt" size="md" color="black"/>
+        <Text fontSize="8xl">lg</Text>
+        <Text fontSize="8xl">lg</Text>
+        <Text fontSize="8xl">lg</Text>
+        <Text fontSize="8xl">lg</Text>
+        <Text fontSize="8xl">lg</Text>
       </AppTemplate>
     );
   }
