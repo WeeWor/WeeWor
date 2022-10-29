@@ -2,8 +2,9 @@ import React from "react";
 import {HStack, Icon, Image, Text, View, ScrollView, VStack} from "native-base";
 import AppTemplate from "../components/templates/app";
 import { ImageSlider } from "react-native-image-slider-banner";
-import Icons from "../utils/icons";
 import center from "native-base/src/theme/components/center";
+import UnitBox from "../components/molecules/unit-box";
+import GuideBox from "../components/molecules/guide-box";
 
 
 class Home extends React.Component {
@@ -27,7 +28,6 @@ class Home extends React.Component {
                           {img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg'}
                       ]}
                       autoPlay={false}
-                      onItemChanged={(item) => console.log("item", item)}
                       closeIconColor="#fff"
                       preview={false}
                   />
@@ -38,61 +38,21 @@ class Home extends React.Component {
               </View>
               <ScrollView horizontal={true}>
                   <HStack flex={3}>
-                      <VStack alignItems={'center'} width={150}>
-                      <Image borderRadius={10} source={{
-                          uri: "https://wallpaperaccess.com/full/317501.jpg"
-                      }} alt="Alternate Text" size="xl" />
-                          <Text>SoB</Text>
-                      </VStack>
-                      <VStack alignItems={'center'} width={150}>
-                      <Image borderRadius={10} source={{
-                          uri: "https://wallpaperaccess.com/full/317501.jpg"
-                      }} alt="Alternate Text" size="xl" />
-                      <Text>SoB</Text>
-                      </VStack>
-                      <VStack alignItems={'center'} width={150}>
-                          <Image borderRadius={10} source={{
-                              uri: "https://wallpaperaccess.com/full/317501.jpg"
-                          }} alt="Alternate Text" size="xl" />
-                          <Text>SoB</Text>
-                      </VStack>
-                      <VStack alignItems={'center'} width={150}>
-                          <Image borderRadius={10} source={{
-                              uri: "https://wallpaperaccess.com/full/317501.jpg"
-                          }} alt="Alternate Text" size="xl" />
-                          <Text>SoB</Text>
-                      </VStack>
+                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
+                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
+                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
+                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
                   </HStack>
               </ScrollView>
               <Text bold fontSize="2xl" marginLeft={3} marginBottom={3}>วิธีการรับมืออุบัติเหตุต่าง ๆ</Text>
               <VStack>
-                  <HStack>
-                      <VStack width={'50%'} alignItems={'center'}>
-                          <Image borderRadius={10} source={{
-                              uri: "https://wallpaperaccess.com/full/317501.jpg"
-                          }} alt="Alternate Text" width={180} height={180} />
-                          <Text>SoB</Text>
-                      </VStack>
-                      <VStack width={'50%'} alignItems={'center'}>
-                          <Image borderRadius={10} source={{
-                              uri: "https://wallpaperaccess.com/full/317501.jpg"
-                          }} alt="Alternate Text" width={180} height={180} />
-                          <Text>SoB</Text>
-                      </VStack>
+                  <HStack space={4} px={2}>
+                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
+                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
                   </HStack>
-                  <HStack>
-                      <VStack width={'50%'} alignItems={'center'}>
-                          <Image borderRadius={10} source={{
-                              uri: "https://wallpaperaccess.com/full/317501.jpg"
-                          }} alt="Alternate Text" width={180} height={180} />
-                          <Text>SoB</Text>
-                      </VStack>
-                      <VStack width={'50%'} alignItems={'center'}>
-                          <Image borderRadius={10} source={{
-                              uri: "https://wallpaperaccess.com/full/317501.jpg"
-                          }} alt="Alternate Text" width={180} height={180} />
-                          <Text>SoB</Text>
-                      </VStack>
+                  <HStack space={4} px={2}>
+                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
+                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
                   </HStack>
               </VStack>
           </ScrollView>
