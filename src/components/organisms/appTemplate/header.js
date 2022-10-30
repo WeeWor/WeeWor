@@ -29,7 +29,7 @@ class Header extends React.Component {
               <Text numberOfLines={1} style={{fontSize:20, paddingTop:"1%", color:"black"}}>ABCDEFGHIJKLMNOPQRSTUVWXYABCDEFGHIJKLMNOPQRSTUVWXY</Text>
             </VStack>
             <HStack p="9" style={{paddingTop:"2%"}}>
-              <MenuButton icon="Octicons" name="pencil" active={false} onPress={() => navigation.replace('Home')} mt={1} pr={3}/>
+              <MenuButton icon="Octicons" name="pencil" active={false} onPress={() => navigation.push('Map')} mt={1} pr={3}/>
               <MenuButton icon="AntDesign" name="message1" active={this.activeMenu(['Chat'])} onPress={() => navigation.replace('Chat')} mt={1}/>
             </HStack>
           </HStack>
