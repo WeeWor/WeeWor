@@ -1,17 +1,14 @@
 import React from "react";
-import { Text , Select , Box , CheckIcon, FlatList, ScrollView } from "native-base";
 import AppTemplate from "../components/templates/app";
-import { TextInput , StyleSheet , View , TouchableOpacity } from "react-native";
-import { create } from "react-test-renderer";
-import SearchByOption from "./searchByOption";
-import ResultFromSearch from "./resultFromSearch";
+import { TextInput , StyleSheet } from "react-native";
+import SearchByOption from "../components/organisms/searchByOption";
+import ResultFromSearch from "../components/organisms/resultFromSearch";
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       keyword: '',
-
     };
   }
 
