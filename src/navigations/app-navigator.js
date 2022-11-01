@@ -14,6 +14,7 @@ import Chat from "../scenes/chat";
 import UnitDetail from "../scenes/unit-detail";
 import Guide from "../scenes/guide";
 import Map from "../scenes/map";
+import ChatMessage from "../scenes/chat-message";
 
 class AppNavigator extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class AppNavigator extends React.Component {
             <Stack.Screen name="ProfileAccount" component={ProfileAccount} />
             <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
             <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen name="ChatMessage" component={ChatMessage} />
             <Stack.Screen name="UnitDetail" component={UnitDetail} />
             <Stack.Screen name="Guide" component={Guide} />
             <Stack.Screen name="Map" component={Map} />
