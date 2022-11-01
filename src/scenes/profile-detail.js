@@ -1,10 +1,32 @@
 import React from "react";
-import {Center, ChevronLeftIcon, Container, HStack, Image, Text, VStack} from "native-base";
+import {
+    Button,
+    Center,
+    ChevronLeftIcon,
+    Container,
+    FormControl,
+    HStack,
+    Image,
+    Input,
+    Modal,
+    Text,
+    VStack,
+} from "native-base";
 import AppTemplate from "../components/templates/app";
 
 class ProfileDetail extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      modal: false,
+      form: {
+          password: ''
+      }
+    };
+  }
+
+  onSubmit() {
+      console.log(this.state.form);
   }
 
   render() {
@@ -52,7 +74,27 @@ class ProfileDetail extends React.Component {
           </VStack>
         <Container h={"100px"}>
         </Container>
-        <Text fontSize="lg" paddingRight={"20px"} bold textAlign="right" color={"red.500"}>แก้ไข</Text>
+        <Text fontSize="lg" paddingRight={"20px"} bold textAlign="right" color={"red.500"} onPress={() => this.setState({modal: true})}>แก้ไข</Text>
+
+          <Modal isOpen={this.state.modal} onClose={() => this.setState({modal: false})}>
+              <Modal.Content maxWidth="400px">
+                  <Modal.CloseButton />
+                  <Modal.Header><Text>แก้ไขบัญชี</Text></Modal.Header>
+                  <Modal.Body>
+                      <FormControl>
+                          <FormControl.Label><Text>input jaa</Text></FormControl.Label>
+                          <Input value={this.state.form.password} onChangeText={(text => this.setState({form: {...this.state.form, password: text}}))} bgColor="#f8f8f8"/>
+                      </FormControl>
+                  </Modal.Body>
+                  <Modal.Footer>
+                      <Button.Group>
+                          <Button onPress={() => this.onSubmit()}>
+                              <Text color="#ffffff">บันทึก</Text>
+                          </Button>
+                      </Button.Group>
+                  </Modal.Footer>
+              </Modal.Content>
+          </Modal>
       </AppTemplate>
     );
   }

@@ -1,6 +1,7 @@
 import React from "react";
-import {Center, Image, Text, VStack} from "native-base";
+import { Center, ChevronRightIcon, Flex, HStack, Image, Text } from "native-base";
 import AppTemplate from "../components/templates/app";
+import { TouchableOpacity } from "react-native";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -18,8 +19,22 @@ class Profile extends React.Component {
               }} alt="Alternate Text" />
               <Text fontSize="2xl" paddingTop={"10px"} bold>USERNAME</Text>
           </Center>
-          <Text fontSize="2xl" paddingLeft={"20px"} paddingTop={"10px"} bold onPress={() => navigation.replace('ProfileAccount')}>บัญชี</Text>
-          <Text fontSize="2xl" paddingLeft={"20px"} paddingTop={"10px"} bold onPress={() => navigation.replace('ProfileDetail')}>ประวัติส่วนตัว</Text>
+          <TouchableOpacity onPress={() => navigation.replace('ProfileDetail')}>
+            <HStack paddingTop={"10px"}>
+              <Text width="60%" fontSize="2xl" paddingLeft="20px" bold>บัญชี</Text>
+              <Flex width="35%" flexDirection="row" justify="flex-end" paddingTop={"6px"}>
+                <ChevronRightIcon size="6"/>
+              </Flex>
+            </HStack>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.replace('ProfileDetail')}>
+            <HStack paddingTop={"10px"}>
+              <Text width="60%" fontSize="2xl" paddingLeft="20px" bold>ประวัติส่วนตัว</Text>
+              <Flex width="35%" flexDirection="row" justify="flex-end" paddingTop={"6px"}>
+                <ChevronRightIcon size="6"/>
+              </Flex>
+            </HStack>
+          </TouchableOpacity>
           <Center>
               <Text fontSize="2xl" bold color={"red.500"} paddingTop={"10px"}>ออกจากระบบ</Text>
           </Center>

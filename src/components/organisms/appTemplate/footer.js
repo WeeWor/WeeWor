@@ -22,7 +22,7 @@ class Footer extends React.Component {
         <MenuButton icon="Feather" name="home" active={this.activeMenu('Home')} onPress={() => navigation.replace('Home')}/>
         <MenuButton icon="Feather" name="search" active={this.activeMenu('Search')} onPress={() => navigation.replace('Search')}/>
         <MenuButton icon="Feather" name="book" active={this.activeMenu(['Other'])} mt={1} onPress={() => navigation.replace('Other')}/>
-        <MenuButton icon="Feather" name="user" active={this.activeMenu(['Profile'])} onPress={() => navigation.replace('Profile')}/>
+        <MenuButton icon="Feather" name="user" active={this.activeMenu(['Profile', 'ProfileAccount', 'ProfileDetail'])} onPress={() => navigation.replace('Profile')}/>
       </View>
     );
   }
