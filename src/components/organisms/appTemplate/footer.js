@@ -21,7 +21,7 @@ class Footer extends React.Component {
       <View backgroundColor={this.props.redMode ? '#ef5054' : null} width={'100%'} height={'100%'} flexDirection={'row'} paddingX={10} paddingTop={2} justifyContent={'space-between'} >
         <MenuButton icon="Feather" name="home" active={this.activeMenu('Home')} onPress={() => navigation.replace('Home')}/>
         <MenuButton icon="Feather" name="search" active={this.activeMenu('Search')} onPress={() => navigation.replace('Search')}/>
-        <MenuButton icon="Feather" name="book" active={this.activeMenu(['Other'])} mt={1} onPress={() => navigation.replace('Other')}/>
+        <MenuButton icon="Feather" name="book" active={this.activeMenu(['Other', 'OtherDetail'])} mt={1} onPress={() => navigation.replace('Other')}/>
         <MenuButton icon="Feather" name="user" active={this.activeMenu(['Profile', 'ProfileAccount', 'ProfileDetail'])} onPress={() => navigation.replace('Profile')}/>
       </View>
     );

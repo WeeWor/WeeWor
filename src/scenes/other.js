@@ -4,6 +4,7 @@ import {Box, HStack, Icon, Text, VStack} from "native-base";
 import AppTemplate from "../components/templates/app";
 import Icons from "../utils/icons";
 import center from "native-base/src/theme/components/center";
+import OtherBox from "../components/molecules/other-box";
 
 class Other extends React.Component {
   constructor(props) {
@@ -11,40 +12,20 @@ class Other extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <AppTemplate {...this.props}>
         <Text fontSize="3xl" paddingLeft={6} paddingTop={4}>Family</Text>
 
         <HStack mt={4} space={5} justifyContent={'center'}>
-          <VStack>
-          <Box w={40} h={40} style={{ backgroundColor: "#27aae2",}} justifyContent={'center'}>
-            <Icon as={Icons['FontAwesome']} name={'user'} color='#ffffff'  size={'6xl'} m={'36.5%'}/>
-          </Box>
-            <Text fontSize="3xl" style={{textAlign:'center' }}>Dad</Text>
-          </VStack>
-
-          <VStack>
-            <Box w={40} h={40} style={{ backgroundColor: "#27aae2", }} justifyContent={'center'}>
-              <Icon as={Icons['FontAwesome']} name={'user'} color='#ffffff'  size={'6xl'} m={'36.5%'}/>
-            </Box>
-            <Text fontSize="3xl" style={{textAlign:'center' }}>Dad</Text>
-          </VStack>
+          <OtherBox name="Dad" onPress={() => navigation.replace('OtherDetail')}/>
+          <OtherBox name="Dad"/>
         </HStack>
 
         <HStack mt={4} space={5} justifyContent={'center'}>
-          <VStack>
-            <Box w={40} h={40} style={{ backgroundColor: "#27aae2", }} justifyContent={'center'}>
-              <Icon as={Icons['FontAwesome']} name={'user'} color='#ffffff'  size={'6xl'} m={'36.5%'}/>
-            </Box>
-            <Text fontSize="3xl" style={{textAlign:'center' }}>Dad</Text>
-          </VStack>
-
-          <VStack>
-            <Box w={40} h={40} style={{ backgroundColor: "#27aae2", }} justifyContent={'center'}>
-              <Icon as={Icons['FontAwesome']} name={'user'} color='#ffffff'  size={'6xl'} m={'36.5%'}/>
-            </Box>
-            <Text fontSize="3xl" style={{textAlign:'center' }}>Dad</Text>
-          </VStack>
+          <OtherBox name="Dad"/>
+          <OtherBox name="Dad"/>
         </HStack>
 
         <HStack mt={4} ml={8} mb={4} space={3} >
