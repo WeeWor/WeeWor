@@ -19,7 +19,7 @@ class Profile extends React.Component {
               }} alt="Alternate Text" />
               <Text fontSize="2xl" paddingTop={"10px"} bold>USERNAME</Text>
           </Center>
-          <TouchableOpacity onPress={() => navigation.replace('ProfileDetail')}>
+          <TouchableOpacity onPress={() => navigation.replace('ProfileAccount')}>
             <HStack paddingTop={"10px"}>
               <Text width="60%" fontSize="2xl" paddingLeft="20px" bold>บัญชี</Text>
               <Flex width="35%" flexDirection="row" justify="flex-end" paddingTop={"6px"}>
