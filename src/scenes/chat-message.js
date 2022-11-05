@@ -23,7 +23,7 @@ class ChatMessage extends React.Component {
             <View width={"100%"} height={100}>
                 <ImageBackground source={this.props.redMode ? null : bg} style={{height:"100%", width:"100%", flex:1}}>
                       <HStack flex={1}   marginLeft={"3%"} marginTop={"3"}>
-                          <Icon as={Icons["AntDesign"]} name={"left"} color="black" size={"xl"} marginTop={"9%"}  onPress={() => navigation.push('Chat')}/>
+                          <Icon as={Icons["AntDesign"]} name={"left"} color="black" size={"xl"} marginTop={"9%"}  onPress={() => navigation.goBack()}/>
                           <HeaderChatUnitProfile img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTplZHUVIoXC-YGbEg3ylOwDJU6k8de8C7vms1X67w7g&s" unit="โรงพยาบาลabc"/>
                           <HeaderChatUnitName name="โรงพยาบาลabc"/>
                       </HStack>

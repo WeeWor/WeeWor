@@ -1,7 +1,8 @@
 import React from "react";
-import {Button, Container, Text} from "native-base";
+import { Button, Container, Icon, Text } from "native-base";
 import { StyleSheet} from "react-native";
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
+import Icons from "../utils/icons";
 
 class Map extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Map extends React.Component {
 
   render() {
     return (
+      <>
         <Container style={{height:"100%", width: 400}}>
             <MapView onPress={(e) => this.setState({ position: e.nativeEvent.coordinate })}
                  provider={PROVIDER_GOOGLE} // remove if not using Google Maps
@@ -40,6 +42,8 @@ class Map extends React.Component {
                 <Text bold fontSize={"2xl"} style={{color: "white"}}>ยืนยัน</Text>
             </Button>
         </Container>
+        <Icon as={Icons.Feather} name="x" size="2xl" color="black" style={styles.cross} onPress={() => this.props.navigation.goBack()} />
+      </>
     );
   }
 }
@@ -54,6 +58,11 @@ const styles = StyleSheet.create({
         bottom: 5,
         left: 5,
         width: 380
+    },
+    cross: {
+      position: "absolute",
+      right: 8,
+      top: 8
     }
 });
 
