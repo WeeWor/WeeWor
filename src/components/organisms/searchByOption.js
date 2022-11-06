@@ -1,5 +1,7 @@
 import React from "react";
 import { Select, CheckIcon , ScrollView } from "native-base";
+import province from "../../assets/province.json";
+import district from "../../assets/district.json";
 
 class SearchByOption extends React.Component {
   constructor(props) {
@@ -7,9 +9,18 @@ class SearchByOption extends React.Component {
     this.state = {
       province: '',
       district: '',
-      subdistrict: '',
       unit: ''
     }
+  }
+
+  showDistricts() {
+    let districts = district.filter(data => data.province_id === this.state.province);
+
+    return (
+      districts.map((data, index) => (
+        <Select.Item label={data.name_th} value={data.id} key={index} />
+      ))
+    )
   }
 
   render() {
@@ -19,46 +30,27 @@ class SearchByOption extends React.Component {
                 width={165} height={33} borderRadius={20} bgColor = "rgba(192, 192, 192, 0.59)"
                 placeholderTextColor = "rgba(0, 0, 0, 0.4)" placeholder="ประเภทหน่วยงาน"
                 _selectedItem={{bg:"teal.500" ,endIcon: <CheckIcon size="5" />}} mt={2} ml={1} onValueChange={itemValue => this.setState({ unit: itemValue })}>
-          <Select.Item label="โรงพยาบาล" value="1" />
-          <Select.Item label="สภานีตำรวจ" value="2" />
-          <Select.Item label="สถานีดับเพลิง" value="3" />
-          <Select.Item label="กู้ภัย" value="4" />
-          <Select.Item label="สายด่วนทางหลวง" value="5" />
+          <Select.Item label="หน่วยพยาบาล" value="medical" />
+          <Select.Item label="หน่วยตำรวจ" value="police" />
+          <Select.Item label="หน่วยดับเพลิง" value="fire_department" />
         </Select>
 
         <Select selectedValue={this.state.province} size={15}
                 width={105} height={33} borderRadius={20} bgColor = "rgba(192, 192, 192, 0.59)"
                 placeholderTextColor = "rgba(0, 0, 0, 0.4)" placeholder="จังหวัด"
-                _selectedItem={{bg: "teal.600",endIcon: <CheckIcon size="5" />}} mt={2} ml={1} onValueChange={itemValue => this.setState({ province: itemValue })}>
-          <Select.Item label="จังหวัด" value="1" />
-          <Select.Item label="จังหวัด" value="2" />
-          <Select.Item label="จังหวัด" value="3" />
-          <Select.Item label="จังหวัด" value="4" />
-          <Select.Item label="จังหวัด" value="5" />
+                _selectedItem={{bg: "teal.600",endIcon: <CheckIcon size="5" />}} mt={2} ml={1} onValueChange={itemValue => this.setState({ province: itemValue, district: '' })}>
+          {province.map((data, index) => (
+            <Select.Item label={data.name_th} value={data.id} key={index} />
+          ))}
         </Select>
 
         <Select selectedValue={this.state.district} size={10}
                 width={105} height={33} borderRadius={20} bgColor = "rgba(192, 192, 192, 0.59)"
                 placeholderTextColor = "rgba(0, 0, 0, 0.4)" placeholder="อำเภอ"
+                isDisabled={this.state.province === ''}
                 _selectedItem={{bg: "teal.600",endIcon: <CheckIcon size="5" />}} mt={2} ml={1} onValueChange={itemValue => this.setState({ district: itemValue })}>
-          <Select.Item label="อำเภอ" value="1" />
-          <Select.Item label="อำเภอ" value="2" />
-          <Select.Item label="อำเภอ" value="3" />
-          <Select.Item label="อำเภอ" value="4" />
-          <Select.Item label="อำเภอ" value="5" />
+          {this.showDistricts()}
         </Select>
-
-        <Select selectedValue={this.state.subdistrict} size={10}
-                width={105} height="33" borderRadius={20} bgColor = "rgba(192, 192, 192, 0.59)"
-                placeholderTextColor = "rgba(0, 0, 0, 0.4)" placeholder="ตำบล"
-                _selectedItem={{bg: "teal.600",endIcon: <CheckIcon size="5" />}} mt={2} ml={1} onValueChange={itemValue => this.setState({ subdistrict: itemValue })}>
-          <Select.Item label="ตำบล" value="1" />
-          <Select.Item label="ตำบล" value="2" />
-          <Select.Item label="ตำบล" value="3" />
-          <Select.Item label="ตำบล" value="4" />
-          <Select.Item label="ตำบล" value="5" />
-        </Select>
-
       </ScrollView>
     );
   }
