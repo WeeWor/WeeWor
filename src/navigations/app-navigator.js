@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NativeBaseProvider } from "native-base/src/core/NativeBaseProvider";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import loadStates from "../utils/loadStates";
+import {setLatitude, setLongitude, setAddress} from "../redux/reducers/locationSlice";
 
 import Home from "../scenes/home";
 import Search from "../scenes/search";
@@ -16,9 +19,19 @@ import Guide from "../scenes/guide";
 import Map from "../scenes/map";
 import ChatMessage from "../scenes/chat-message";
 
+const mapDispatchToProps = () => ({
+  setLatitude,
+  setLongitude,
+  setAddress
+});
+
 class AppNavigator extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    loadStates(this.props);
   }
 
   render() {
@@ -49,4 +62,4 @@ class AppNavigator extends React.Component {
     );
   }
 }
-export default AppNavigator;
+export default connect(null, mapDispatchToProps())(AppNavigator);

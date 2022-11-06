@@ -1,23 +1,48 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { Button, Container, Icon, Text } from "native-base";
 import { StyleSheet} from "react-native";
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 import Icons from "../utils/icons";
+import { setAddress, setLatitude, setLongitude } from "../redux/reducers/locationSlice";
+import axios from "axios";
+import { API_URL } from "../../config";
+
+const mapStateToProps = state => ({
+  latitude: state.location.latitude,
+  longitude: state.location.longitude,
+  address: state.location.address
+});
+
+const mapDispatchToProps = () => ({
+  setLatitude,
+  setLongitude,
+  setAddress
+});
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
         position: {
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: this.props.latitude,
+            longitude: this.props.longitude,
         }
     }
   }
 
-  confirmation() {
-      console.log(this.state.position.latitude);
-      console.log(this.state.position.longitude);
+  async confirmation() {
+    this.props.setLatitude(this.state.position.latitude);
+    this.props.setLongitude(this.state.position.longitude);
+
+    let plus_code = (await axios.post(API_URL + "/location/address", {
+      latitude: this.state.position.latitude,
+      longitude: this.state.position.longitude
+    })).data;
+
+    this.props.setAddress(plus_code.plus_code);
+
+    return this.props.navigation.goBack();
   }
 
   render() {
@@ -28,11 +53,12 @@ class Map extends React.Component {
                  provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                  style={styles.map}
                  region={{
-                     latitude: 37.78825,
-                     longitude: -122.4324,
+                     latitude: this.props.latitude,
+                     longitude: this.props.longitude,
                      latitudeDelta: 0.015,
                      longitudeDelta: 0.0121,
                  }}
+                 showsUserLocation={true}
             >
                 <Marker
                     coordinate={this.state.position}
@@ -61,9 +87,9 @@ const styles = StyleSheet.create({
     },
     cross: {
       position: "absolute",
-      right: 8,
+      left: 8,
       top: 8
     }
 });
 
-export default Map;
+export default connect(mapStateToProps, mapDispatchToProps())(Map);
