@@ -47,7 +47,10 @@ class ResultFromSearch extends React.Component {
             ...(this.props.district !== '') && {district: this.props.district},
         };
         let data = (await axios.post(API_URL + "/unit/search", body)).data;
-        return this.setState({units: data});
+
+        if (data.message !== "400 Bad Request") {
+            return this.setState({units: data});
+        }
     }
 
     image(type) {
@@ -72,7 +75,7 @@ class ResultFromSearch extends React.Component {
           <SafeAreaView>
               {
                   this.state.units.map((item, index) => (
-                    <TouchableOpacity style={styles.item} key={index}>
+                    <TouchableOpacity style={styles.item} key={index} onPress={() => this.props.navigation.push('UnitDetail', {id: item.id})}>
                         <HStack>
                             <VStack style={{width:"50%"}}>
                                 <Image source={{uri: this.image(item.service)}} style={styles.photo}/>

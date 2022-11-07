@@ -14,7 +14,7 @@ class UnitBox extends React.Component {
           <Image borderRadius={10} source={{
             uri: this.props.img
           }} alt="" size="xl" />
-          <Text>{ this.props.text }</Text>
+          <Text numberOfLines={1}>{ this.props.text }</Text>
         </VStack>
       </TouchableOpacity>
     );

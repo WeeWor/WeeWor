@@ -1,18 +1,64 @@
 import React from "react";
+import { connect } from 'react-redux';
 import {HStack, Text, View, ScrollView, VStack} from "native-base";
 import AppTemplate from "../components/templates/app";
 import { ImageSlider } from "react-native-image-slider-banner";
 import UnitBox from "../components/molecules/unit-box";
 import GuideBox from "../components/molecules/guide-box";
+import axios from "axios";
+import { API_URL } from "../../config";
 
+const mapStateToProps = state => ({
+  latitude: state.location.latitude,
+  longitude: state.location.longitude,
+});
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-
+        units: []
       };
+  }
 
+  componentDidMount() {
+    this.getNearby();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.latitude !== this.props.latitude ||
+      prevProps.longitude !== this.props.longitude) {
+      this.getNearby();
+    }
+  }
+
+  async getNearby() {
+    const body = {
+      latitude: this.props.latitude,
+      longitude: this.props.longitude,
+    };
+    let data = (await axios.post(API_URL + "/unit/nearby", body)).data;
+
+    if (data.message !== "400 Bad Request") {
+      return this.setState({units: data});
+    }
+  }
+
+  image(type) {
+    let res = "";
+    switch (type) {
+      case "medical":
+        res = "https://i.ibb.co/THSyYzL/image.jpg";
+        break;
+      case "fire_department":
+        res = "https://i.ibb.co/6gLSHTc/image.jpg";
+        break;
+      case "police":
+        res = "https://i.ibb.co/kBh3Dxf/image.jpg"
+        break;
+    }
+
+    return res;
   }
 
   render() {
@@ -35,14 +81,15 @@ class Home extends React.Component {
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Text bold fontSize="2xl" marginLeft={3} marginBottom={3}>หน่วยงานที่ใกล้คุณ</Text>
-                  <Text marginTop={2} fontSize="lg">เพิ่มเติม ></Text>
+                  <Text marginTop={2} fontSize="lg" onPress={() => navigation.replace('Search')}>เพิ่มเติม ></Text>
               </View>
               <ScrollView horizontal={true}>
                   <HStack flex={3}>
-                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB" onPress={() => navigation.push('UnitDetail')}/>
-                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
-                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
-                      <UnitBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
+                    {
+                      this.state.units.map((item, index) => (
+                        <UnitBox img={this.image(item.service)} text={item.name} onPress={() => navigation.push('UnitDetail', {id: item.id})} key={index}/>
+                      ))
+                    }
                   </HStack>
               </ScrollView>
               <Text bold fontSize="2xl" marginLeft={3} marginBottom={3}>วิธีการรับมืออุบัติเหตุต่าง ๆ</Text>
@@ -62,4 +109,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);
