@@ -1,11 +1,12 @@
 import React from "react";
 import {
+  Box,
   Button,
   Center,
   ChevronLeftIcon,
   Container,
   FormControl,
-  HStack,
+  HStack, Icon,
   Image,
   Input,
   Modal,
@@ -13,6 +14,8 @@ import {
   VStack,
 } from "native-base";
 import AppTemplate from "../components/templates/app";
+import Icons from "../utils/icons";
+import profileStorage from "../utils/profileStorage";
 
 class OtherDetail extends React.Component {
 
@@ -21,6 +24,7 @@ class OtherDetail extends React.Component {
     this.state = {
       modal: false,
       form: {
+        id: '',
         name: '',
         age: 0,
         phone: '',
@@ -28,8 +32,39 @@ class OtherDetail extends React.Component {
         congenital: '',
         allergy: '',
         blood: ''
-      }
+      },
+      display: {
+        name: 'ไม่มี',
+        age: 0,
+        phone: 'ไม่มี',
+        address: 'ไม่มี',
+        congenital: 'ไม่มี',
+        allergy: 'ไม่มี',
+        blood: 'ไม่มี'
+      },
     }
+  }
+
+  componentDidMount() {
+    this.loadProfile();
+  }
+
+  async loadProfile() {
+    const data = await profileStorage.getItem('profiles');
+    let info = data[this.props.navigation.getState().routes[0].params.id];
+
+    this.setState({display: info});
+    this.setState({form: info});
+  }
+
+  async onSubmit() {
+    await profileStorage.editJson(this.props.navigation.getState().routes[0].params.id, this.state.form, 'profiles');
+    return this.setState({display: this.state.form, modal: false});
+  }
+
+  async onDelete() {
+    await profileStorage.deleteJson(this.props.navigation.getState().routes[0].params.id, 'profiles');
+    return this.props.navigation.replace('Other');
   }
 
   render() {
@@ -39,51 +74,56 @@ class OtherDetail extends React.Component {
         <HStack space="22.70%">
           <ChevronLeftIcon size="5" mt="3" ml="3" color="black" onPress={() => navigation.replace('Other')}/>
           <Center paddingTop={"10px"} paddingBottom={"30px"}>
-            <Image size={150} borderRadius={100} source={{
-              uri: "https://i.picsum.photos/id/162/200/300.jpg?hmac=j8KV0LSPmue8af4dmytyFqhoPlvcsudNYFaB_i5DINs"
-            }} alt="Alternate Text" />
-            <Text fontSize="2xl" paddingTop={"10px"} bold>DAD</Text>
+            <Box w={150} h={150} borderRadius={100} style={{ backgroundColor: "#27aae2" }} justifyContent={'center'}>
+              <Icon as={Icons['FontAwesome']} name={'user'} color='#ffffff' size={'6xl'} m={'35%'}/>
+            </Box>
+            <Text fontSize="2xl" paddingTop={"10px"} bold>{this.state.display.nickname}</Text>
           </Center>
         </HStack>
         <VStack space="2">
           <HStack>
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>ชื่อ</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>นายบุญชู วัฒนสรร</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.name}</Text>
           </HStack>
           <HStack >
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>อายุ</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>500 ปี</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.age} ปี</Text>
           </HStack>
           <HStack >
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>หมายเลขโทรศัพท์</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>093-999-9991</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.phone}</Text>
           </HStack>
           <HStack >
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>ที่อยู่</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>หมู่บ้านC ถนน...</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.address}</Text>
           </HStack>
           <HStack >
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>โรคประจำตัว</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>ไม่มี</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.congenital}</Text>
           </HStack>
           <HStack >
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>ยาที่แพ้</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>ไม่มี</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.allergy}</Text>
           </HStack>
           <HStack >
             <Text fontSize="lg" w={"50%"} paddingLeft={"20px"} bold>กรุ๊ปเลือด</Text>
-            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>B</Text>
+            <Text fontSize="lg" w={"50%"} textAlign={"right"} paddingRight={"20px"} color={"gray.500"} bold>{this.state.display.blood}</Text>
           </HStack>
         </VStack>
-        <Container h={"100px"}>
-        </Container>
-        <Text fontSize="lg" paddingRight={"20px"} bold textAlign="right" color={"red.500"} onPress={() => this.setState({modal: true})}>แก้ไข</Text>
+        <HStack alignSelf="flex-end" pt={10}>
+          <Text fontSize="lg" paddingRight={"20px"} bold color={"red.500"} onPress={() => this.setState({modal: true})}>แก้ไข</Text>
+          <Text fontSize="lg" paddingRight={"20px"} bold color={"red.500"} onPress={() => this.onDelete()}>ลบ</Text>
+        </HStack>
 
         <Modal isOpen={this.state.modal} onClose={() => this.setState({modal: false})}>
           <Modal.Content maxWidth="400px">
             <Modal.CloseButton />
             <Modal.Header><Text>แก้ไขโปรไฟล์</Text></Modal.Header>
             <Modal.Body>
+              <FormControl>
+                <FormControl.Label><Text>ชื่อเล่น</Text></FormControl.Label>
+                <Input value={this.state.form.nickname} onChangeText={(text => this.setState({form: {...this.state.form, nickname: text}}))} bgColor="#f8f8f8"/>
+              </FormControl>
               <FormControl>
                 <FormControl.Label><Text>ชื่อ</Text></FormControl.Label>
                 <Input value={this.state.form.name} onChangeText={(text => this.setState({form: {...this.state.form, name: text}}))} bgColor="#f8f8f8"/>

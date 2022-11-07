@@ -6,6 +6,8 @@ import Icons from "../utils/icons";
 import center from "native-base/src/theme/components/center";
 import OtherBox from "../components/molecules/other-box";
 import { TouchableOpacity } from "react-native";
+import randomId from "../utils/randomId";
+import profileStorage from "../utils/profileStorage";
 
 class Other extends React.Component {
   constructor(props) {
@@ -21,27 +23,57 @@ class Other extends React.Component {
         congenital: '',
         allergy: '',
         blood: ''
-      }
+      },
+      profiles: []
     };
   }
 
-  render() {
-    const { navigation } = this.props;
+  componentDidMount() {
+    this.loadProfiles();
+  }
 
-    return (
-      <AppTemplate {...this.props}>
-        <Text fontSize="3xl" paddingLeft={6} paddingTop={4}>Family</Text>
+  async onSubmit() {
+    const id = randomId(6);
+    const json = {
+      id: id,
+      ...this.state.form
+    };
 
-        <HStack mt={4} space={5} justifyContent={'center'}>
-          <OtherBox name="Dad" onPress={() => navigation.replace('OtherDetail')}/>
-          <OtherBox name="Dad"/>
+    await profileStorage.insertJson(id, json, 'profiles');
+    await this.loadProfiles();
+
+    return this.setState({modal: false});
+  }
+
+  async loadProfiles() {
+    let data = await profileStorage.getItem('profiles');
+    return this.setState({profiles: data});
+  }
+
+  display() {
+    let data = Object.entries(this.state.profiles);
+    let res = [];
+    for (let i=0;i<data.length/2;i++) {
+      res.push(
+        <HStack mt={4} space={5} justifyContent={'center'} key={i}>
+          <OtherBox name={data[i*2][1].nickname} onPress={() => this.props.navigation.replace('OtherDetail', {id: data[i*2][1].id})}/>
+          {data[(i*2)+1] ?
+            <OtherBox name={data[(i*2)+1][1].nickname} onPress={() => this.props.navigation.replace('OtherDetail', {id: data[i*2][1].id})}/>
+            :
+            <TouchableOpacity onPress={() => this.setState({modal: true})}>
+              <VStack>
+                <Box w={40} h={40} style={{ backgroundColor:"#b7cad1"}} justifyContent={'center'}>
+                  <Icon as={Icons['Entypo']} name={'plus'} color='#ffffff'  size={'6xl'} m={'31.5%'}/>
+                </Box>
+              </VStack>
+            </TouchableOpacity>
+          }
         </HStack>
+      )
+    }
 
-        <HStack mt={4} space={5} justifyContent={'center'}>
-          <OtherBox name="Dad"/>
-          <OtherBox name="Dad"/>
-        </HStack>
-
+    if (data.length % 2 === 0) {
+      res.push(
         <HStack mt={4} ml={8} mb={4} space={3}>
           <TouchableOpacity onPress={() => this.setState({modal: true})}>
             <VStack>
@@ -51,6 +83,20 @@ class Other extends React.Component {
             </VStack>
           </TouchableOpacity>
         </HStack>
+      )
+    }
+
+    return res;
+  }
+
+  render() {
+    const { navigation } = this.props;
+
+    return (
+      <AppTemplate {...this.props}>
+        <Text fontSize="3xl" paddingLeft={6} paddingTop={4}>Family</Text>
+
+        {this.display()}
 
         <Modal isOpen={this.state.modal} onClose={() => this.setState({modal: false})}>
           <Modal.Content maxWidth="400px">
