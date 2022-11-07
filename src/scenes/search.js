@@ -1,8 +1,14 @@
 import React from "react";
+import { connect } from 'react-redux';
 import AppTemplate from "../components/templates/app";
 import { TextInput , StyleSheet } from "react-native";
 import SearchByOption from "../components/organisms/searchByOption";
 import ResultFromSearch from "../components/organisms/resultFromSearch";
+import { setKeyword } from "../redux/reducers/searchSlice";
+
+const mapDispatchToProps = () => ({
+  setKeyword
+});
 
 class Search extends React.Component {
   constructor(props) {
@@ -11,10 +17,6 @@ class Search extends React.Component {
       keyword: '',
     };
   }
-
-  searchKeyword = (text) => {
-    this.setState({ keyword : text })
-  };
 
   render() {
 
@@ -25,11 +27,12 @@ class Search extends React.Component {
         placeholder = "Search"
         placeholderTextColor = "rgba(0, 0, 0, 0.4)"
         autoCapitalize = "none"
-        onChangeText = {(text) => this.searchKeyword(text)}
+        onChangeText = {(text) => this.setState({ keyword : text })}
+        onSubmitEditing={() => this.props.setKeyword(this.state.keyword)}
         value = {this.state.keyword}
         />
         <SearchByOption/>
-        <ResultFromSearch/>
+        <ResultFromSearch navigation={this.props.navigation}/>
       </AppTemplate>
     );
   }
@@ -68,4 +71,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Search;
+export default connect(null, mapDispatchToProps())(Search);
