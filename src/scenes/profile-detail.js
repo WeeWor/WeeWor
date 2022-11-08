@@ -52,7 +52,7 @@ class ProfileDetail extends React.Component {
     const storage = await AsyncStorage.getItem('profile');
 
     if (storage) {
-      this.setState({display: JSON.parse(storage)});
+      this.setState({display: JSON.parse(storage), form: JSON.parse(storage)});
     }
   }
 

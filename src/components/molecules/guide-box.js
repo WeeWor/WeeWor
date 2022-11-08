@@ -13,8 +13,8 @@ class GuideBox extends React.Component {
         <VStack alignItems={'center'}>
           <Image borderRadius={10} source={{
             uri: this.props.img
-          }} alt="" width={180} height={180} />
-          <Text>{this.props.text}</Text>
+          }} alt="" width={180} height={180} resizeMode="contain" />
+          <Text numberOfLines={1} maxWidth={180}>{this.props.text}</Text>
         </VStack>
       </TouchableOpacity>
     );

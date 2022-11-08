@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from 'react-redux';
-import {HStack, Text, View, ScrollView, VStack} from "native-base";
+import { HStack, Text, View, ScrollView, VStack } from "native-base";
 import AppTemplate from "../components/templates/app";
 import { ImageSlider } from "react-native-image-slider-banner";
 import UnitBox from "../components/molecules/unit-box";
 import GuideBox from "../components/molecules/guide-box";
 import axios from "axios";
 import { API_URL } from "../../config";
+import guide from "../assets/guide.json";
 
 const mapStateToProps = state => ({
   latitude: state.location.latitude,
@@ -17,12 +18,14 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        units: []
+        units: [],
+        guides: []
       };
   }
 
   componentDidMount() {
     this.getNearby();
+    this.getGuides();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -45,6 +48,25 @@ class Home extends React.Component {
         return this.setState({ units: data });
       }
     }
+  }
+
+  getGuides() {
+    return this.setState({guides: guide});
+  }
+
+  showGuides() {
+    let data = this.state.guides;
+    let res = [];
+    for (let i=0;i<data.length/2;i++) {
+      res.push(
+        <HStack space={4} px={2} key={i}>
+          <GuideBox img={data[i*2].image} text={data[i*2].name} onPress={() => this.props.navigation.push('Guide', {id: data[i*2].id})} key={data[i*2].id}/>
+          {data[(i*2)+1] ? <GuideBox img={data[(i*2)+1].image} text={data[(i*2)+1].name} onPress={() => this.props.navigation.push('Guide', {id: data[(i*2)+1].id})} key={data[(i*2)+1].id}/> : ''}
+        </HStack>
+      );
+    }
+
+    return res;
   }
 
   image(type) {
@@ -97,14 +119,7 @@ class Home extends React.Component {
               </ScrollView>
               <Text bold fontSize="2xl" marginLeft={3} marginBottom={3}>วิธีการรับมืออุบัติเหตุต่าง ๆ</Text>
               <VStack>
-                  <HStack space={4} px={2}>
-                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB" onPress={() => navigation.push('Guide')}/>
-                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
-                  </HStack>
-                  <HStack space={4} px={2}>
-                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
-                    <GuideBox img="https://wallpaperaccess.com/full/317501.jpg" text="SoB"/>
-                  </HStack>
+                {this.showGuides()}
               </VStack>
           </ScrollView>
       </AppTemplate>

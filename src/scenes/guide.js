@@ -1,10 +1,23 @@
 import React from "react";
 import {Button, Image, ScrollView, Text, View} from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import guide from "../assets/guide.json";
 
 class Guide extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      detail: {}
+    }
+  }
+
+  componentDidMount() {
+    this.getDetail();
+  }
+
+  getDetail() {
+    const data = guide.find(item => item.id === this.props.navigation.getState().routes[1].params.id)
+    return this.setState({detail: data});
   }
 
   render() {
@@ -12,7 +25,7 @@ class Guide extends React.Component {
       <ScrollView style={{backgroundColor:'white'}}>
         <Image
             style={{width:'100%', height:250}}
-            source={{uri: 'https://img.kapook.com/u/2016/kantana/12health/ppa4_1.jpg'}}
+            source={{uri: this.state.detail.image}}
             alt=""
         />
         <View width={'100%'} style={{alignSelf: 'flex-end',
@@ -24,10 +37,10 @@ class Guide extends React.Component {
         </View>
         <View>
           <Text bold fontSize="4xl" margin={3}>
-            การช่วยเหลือคนจมน้ำ
+            {this.state.detail.name}
           </Text>
           <Text fontSize="2xl" margin={3}>
-            ผู้ช่วยเหลือยืดแขนและไหล่เหยียดตรง แล้วปล่อยน้ำหนักตัวผ่านจากไหล่ไปที่ลำแขนสองข้าง และลงไปสู่กระดูกหน้าอกในแนวตั้งฉากกับลำตัว กดลลงลึกประมาณ 2 นิ้ว หรือราว ๆ 5 เซนติเมตรของความหนาหน้าอก ให้กดลงไปในแนวดิ่งและอย่ากระแทก ให้ทำสลับกับการเป่าปาก ใช้เทคนิคการเป่าปาก 2 ครั้ง/การกดหน้าอก 30 ครั้ง
+            {this.state.detail.description}
           </Text>
         </View>
       </ScrollView>
