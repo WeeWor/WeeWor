@@ -1,19 +1,26 @@
 import React from "react";
+import { connect } from 'react-redux';
 import {
-    Button,
-    Center,
-    ChevronLeftIcon,
-    Container,
-    FormControl,
-    HStack,
-    Image,
-    Input,
-    Modal,
-    Text,
-    VStack,
+  Box,
+  Button,
+  Center,
+  ChevronLeftIcon,
+  Container,
+  FormControl,
+  HStack, Icon,
+  Input,
+  Modal,
+  Text,
+  VStack,
 } from "native-base";
 import AppTemplate from "../components/templates/app";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icons from "../utils/icons";
+
+const mapStateToProps = state => ({
+  auth: state.auth.auth,
+  username: state.auth.username
+});
 
 class ProfileDetail extends React.Component {
   constructor(props) {
@@ -61,10 +68,10 @@ class ProfileDetail extends React.Component {
           <HStack space="22.70%">
               <ChevronLeftIcon size="5" mt="3" ml="3" color="black" onPress={() => navigation.replace('Profile')}/>
               <Center paddingTop={"10px"} paddingBottom={"30px"}>
-                  <Image size={150} borderRadius={100} source={{
-                      uri: "https://i.picsum.photos/id/162/200/300.jpg?hmac=j8KV0LSPmue8af4dmytyFqhoPlvcsudNYFaB_i5DINs"
-                  }} alt="Alternate Text" />
-                  <Text fontSize="2xl" paddingTop={"10px"} bold>USERNAME</Text>
+                <Box w={150} h={150} borderRadius={100} style={{ backgroundColor: "#27aae2" }} justifyContent={'center'}>
+                  <Icon as={Icons['FontAwesome']} name={'user'} color='#ffffff' size={'6xl'} m={'35%'}/>
+                </Box>
+                  <Text fontSize="2xl" paddingTop={"10px"} bold>{this.props.auth ? this.props.username : 'ผู้ใช้งาน'}</Text>
               </Center>
           </HStack>
           <VStack space="2">
@@ -149,4 +156,4 @@ class ProfileDetail extends React.Component {
   }
 }
 
-export default ProfileDetail;
+export default connect(mapStateToProps)(ProfileDetail);

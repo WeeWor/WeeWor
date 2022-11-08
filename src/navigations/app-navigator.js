@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import loadStates from "../utils/loadStates";
 import {setLatitude, setLongitude, setAddress} from "../redux/reducers/locationSlice";
+import {setAuth, setUsername} from "../redux/reducers/authSlice";
 
 import Home from "../scenes/home";
 import Search from "../scenes/search";
@@ -22,7 +23,9 @@ import ChatMessage from "../scenes/chat-message";
 const mapDispatchToProps = () => ({
   setLatitude,
   setLongitude,
-  setAddress
+  setAddress,
+  setAuth,
+  setUsername
 });
 
 class AppNavigator extends React.Component {
