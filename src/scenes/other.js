@@ -56,9 +56,9 @@ class Other extends React.Component {
     for (let i=0;i<data.length/2;i++) {
       res.push(
         <HStack mt={4} space={5} justifyContent={'center'} key={i}>
-          <OtherBox name={data[i*2][1].nickname} onPress={() => this.props.navigation.replace('OtherDetail', {id: data[i*2][1].id})}/>
+          <OtherBox name={data[i*2][1].nickname} onPress={() => this.props.navigation.replace('OtherDetail', {id: data[i*2][1].id})} key={data[i*2][1].id}/>
           {data[(i*2)+1] ?
-            <OtherBox name={data[(i*2)+1][1].nickname} onPress={() => this.props.navigation.replace('OtherDetail', {id: data[i*2][1].id})}/>
+            <OtherBox name={data[(i*2)+1][1].nickname} onPress={() => this.props.navigation.replace('OtherDetail', {id: data[(i*2)+1][1].id})} key={data[(i*2)+1][1].id}/>
             :
             <TouchableOpacity onPress={() => this.setState({modal: true})}>
               <VStack>
@@ -74,7 +74,7 @@ class Other extends React.Component {
 
     if (data.length % 2 === 0) {
       res.push(
-        <HStack mt={4} ml={8} mb={4} space={3}>
+        <HStack mt={4} ml={8} mb={4} space={3} key={"add"}>
           <TouchableOpacity onPress={() => this.setState({modal: true})}>
             <VStack>
               <Box w={40} h={40} style={{ backgroundColor:"#b7cad1"}} justifyContent={'center'}>

@@ -37,10 +37,13 @@ class Home extends React.Component {
       latitude: this.props.latitude,
       longitude: this.props.longitude,
     };
-    let data = (await axios.post(API_URL + "/unit/nearby", body)).data;
 
-    if (data.message !== "400 Bad Request") {
-      return this.setState({units: data});
+    if (this.props.latitude !== 0 && this.props.longitude !== 0) {
+      let data = (await axios.post(API_URL + "/unit/nearby", body)).data;
+
+      if (data.message !== "400 Bad Request") {
+        return this.setState({ units: data });
+      }
     }
   }
 
