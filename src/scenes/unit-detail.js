@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import {Linking} from 'react-native';
 import {Text, View, Image, ScrollView, Button, VStack} from "native-base";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
@@ -6,6 +7,16 @@ import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import axios from "axios";
 import { API_URL } from "../../config";
+import {setChat} from "../redux/reducers/chatSlice";
+
+const mapStateToProps = state => ({
+  auth: state.auth.auth,
+  chats: state.chat.chats
+});
+
+const mapDispatchToProps = () => ({
+  setChat
+});
 
 class UnitDetail extends React.Component {
   constructor(props) {
@@ -21,7 +32,6 @@ class UnitDetail extends React.Component {
 
   async getDetails() {
     let data = (await axios.get(API_URL + "/unit/detail/" + this.props.navigation.getState().routes[1].params.id)).data;
-    console.log(data);
 
     return this.setState({detail: data});
   }
@@ -72,7 +82,19 @@ class UnitDetail extends React.Component {
                 <Feather name={'phone-call'} color={'black'} size={28}/>
               </View>
             </Button>
-            <Button width={'90%'} backgroundColor={"red.400"} borderRadius={40}>
+            <Button width={'90%'} backgroundColor={"red.400"} borderRadius={40} isDisabled={!this.props.auth} onPress={() => {
+              this.props.navigation.push("ChatMessage", { id: this.state.detail.id });
+              if (this.props.chats.filter(e => e.id === this.state.detail.id).length === 0) {
+                this.props.setChat([
+                  {
+                    id: this.state.detail.id,
+                    image: this.image(this.state.detail.service),
+                    name: this.state.detail.name
+                  },
+                  ...this.props.chats
+                ]);
+              }
+            }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text  style={{color:'black', fontSize:26,lineHeight: 35 }} paddingRight={2}>ข้อความ</Text>
                 <AntDesign name={'message1'} color={'black'} size={28}/>
@@ -85,4 +107,4 @@ class UnitDetail extends React.Component {
   }
 }
 
-export default UnitDetail;
+export default connect(mapStateToProps, mapDispatchToProps())(UnitDetail);

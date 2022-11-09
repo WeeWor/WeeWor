@@ -1,5 +1,5 @@
 import React from "react";
-import {Box,Text} from "native-base";
+import { Box, Image, Text } from "native-base";
 import {StyleSheet} from "react-native";
 
 class BoxChatRight extends React.Component {
@@ -10,6 +10,10 @@ class BoxChatRight extends React.Component {
         return (
             <Box style={styles.boxChatRight}  marginY={"1%"}>
                 <Text color={"white"} >{this.props.message}</Text>
+                {this.props.img ?
+                  <Image source={{uri: this.props.img}} alt="google map" width="300" height="100" resizeMode="cover"/>
+                  : null
+                }
             </Box>
         );
     }

@@ -8,7 +8,7 @@ class HeaderChatUnitName extends React.Component {
     render() {
         return (
             <Box>
-                <Text fontSize="2xl" marginTop={"11%"} marginLeft={"3%"} color={"white"} >{this.props.name}</Text>
+                <Text fontSize="2xl" marginTop={"11%"} marginLeft={"3%"} color={"white"} numberOfLines={1} maxWidth={330}>{this.props.name}</Text>
             </Box>
 
         );

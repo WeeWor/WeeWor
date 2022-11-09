@@ -1,6 +1,6 @@
 import React from "react";
 import {Box,Text,} from "native-base";
-import {StyleSheet} from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 class BoxOption extends React.Component {
     constructor(props) {
@@ -8,10 +8,11 @@ class BoxOption extends React.Component {
     }
     render() {
         return (
-            <Box  style={styles.boxOption} >
+          <TouchableOpacity onPress={this.props.onPress}>
+            <Box style={styles.boxOption}>
                 <Text color={"white"} padding={"2"} >{this.props.detail}</Text>
             </Box>
-
+          </TouchableOpacity>
         );
     }
 }
