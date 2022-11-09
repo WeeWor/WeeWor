@@ -1,3 +1,3 @@
 module.exports = {
-  API_URL: "http://10.0.2.2:1337"
+  API_URL: "https://weewor.tu.maxnus.com"
 }
