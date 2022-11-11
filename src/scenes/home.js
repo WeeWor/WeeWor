@@ -95,9 +95,10 @@ class Home extends React.Component {
               <View paddingLeft={3} paddingRight={3}>
                   <ImageSlider
                       data={[
-                          {img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5a5uCP-n4teeW2SApcIqUrcQApev8ZVCJkA&usqp=CAU'},
-                          {img: 'https://thumbs.dreamstime.com/b/environment-earth-day-hands-trees-growing-seedlings-bokeh-green-background-female-hand-holding-tree-nature-field-gra-130247647.jpg'},
-                          {img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg'}
+                          {img: 'https://i.ibb.co/vv0Zt5T/unknown2.png'},
+                          {img: 'https://i.ibb.co/M8qRMH7/unknown1.png'},
+                          {img: 'https://i.ibb.co/g90wGSs/unknown.png'},
+                          {img: 'https://i.ibb.co/dt3Szzs/fire-02.jpg'}
                       ]}
                       autoPlay={false}
                       closeIconColor="#fff"
